@@ -1,0 +1,41 @@
+<div ng-controller="AdminCtrl">
+    <h1 class="text-center">Open Data UIB</h1>
+    <p class="lead text-center">Llistat d'Usuaris</p>
+
+    <div class=" btn-group btn-group-lg">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tooltip-placement="bottom" tooltip="Seleccionar">a
+            <span class="caret"></span>
+            <span class="sr-only">Opcions</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href ng-click="selectAll()">Tot</a></li>
+            <li><a href ng-click="unselectAll()">Res</a></li>
+            <li><a href ng-click="selectAllowed()">Permesos</a></li>
+            <li><a href ng-click="selectBlocked()">Bloquejats</a></li>
+        </ul>
+    </div>
+
+    <button class="btn btn-lg" ng-show="nothingSelected" ng-click="refreshUserList()" tooltip-placement="bottom" tooltip="Actualizar"><span class="glyphicon glyphicon-refresh"></span></button>
+    <div class="btn-group btn-group-lg">
+        <button class="btn btn-default" ng-hide="nothingSelected" ng-click="allowUsers(true)" tooltip-placement="bottom" tooltip="Permetre accés"><span class="glyphicon glyphicon-saved"></span></button>
+        <button class="btn btn-default" ng-hide="nothingSelected" ng-click="allowUsers(false)" tooltip-placement="bottom" tooltip="Bloquejar"><span class="glyphicon glyphicon-ban-circle"></span></button>
+        <button class="btn btn-default" ng-hide="nothingSelected" ng-click="deleteUsers()" tooltip-placement="bottom" tooltip="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>
+    </div>
+    <br><br>
+
+    <table class="table table-hover">
+        <tr>
+            <th><input type="checkbox" ng-change="onMasterChange1()" ng-model="master"></th>
+            <th>Usuari</th>
+            <th>Estat</th>
+        </tr>
+        <tr ng-repeat="user in userList">
+            <!--
+            <td><a href="#/resource/{{person.id}}">{{person.id}}</td>
+            -->
+            <td><input type="checkbox" ng-model="user.cb" ng-change="onMasterChange()" ng-checked="master"></td>
+            <td>{{user.username}}</td>
+            <td>{{user.accountNonLocked && 'Permes' || 'Bloquejat'}}</td>
+        </tr>
+    </table>
+</div>

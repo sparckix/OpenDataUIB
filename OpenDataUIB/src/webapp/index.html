@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="main">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+
+    <title>Open Data UIB</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="extras/starter-template.css" rel="stylesheet">
+
+
+    <link href="css/app.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-animate.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-resource.js"></script>
+    <script src="lib/angular/angular-local-storage.js"></script>
+    <script src="lib/angular/angular-cookies.js"></script>
+    <script src="lib/angular/angular-sanitize.js"></script>
+    <script src="lib/angular/angular-history.js"></script>
+    <script src="lib/angular/angular-translate.js"></script>
+    <script src="lib/angular/angular-translate-loader-static-files.js"></script>
+    <script src="lib/angular/unique.js"></script>
+
+
+
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script type="text/javascript" src="http://durated.github.io/angular-scroll/angular-scroll.min.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/createDialog.js"></script>
+
+    <script type="text/javascript" src="lib/ace-builds/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-ace/ui-ace.js"></script>
+    <!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">-->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+
+    <style>
+
+        html, body {
+            height: 100%;
+        }
+        footer {
+            color: #666;
+            background: #C0C0C0;
+            padding: 17px 0 18px 0;
+        }
+        footer a {
+            color: #999;
+        }
+        footer a:hover {
+            color: #efefef;
+        }
+        .wrapper {
+            min-height: 100%;
+            height: auto !important;
+            height: 100%;
+            margin: 0 auto -63px;
+        }
+        .push {
+            height: 63px;
+        }
+            /* not required for sticky footer; just pushes hero down a bit */
+        .wrapper > .container {
+            padding-top: 60px;
+        }
+    </style>
+</head>
+
+<body ng-cloak>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Open Data Service</a>
+        </div>
+
+        <div class="collapse navbar-collapse" ng-controller="HeaderController">
+            <div id="loaderDiv" loader>
+                <img src="img/ajax-loader.gif" class="ajax-loader"/>
+            </div>
+            <ul class="nav navbar-nav">
+
+                <li ng-class="{active : isActive('/main')}"><a href="#" translate>HOME</a></li>
+                <li ng-class="{active : isActive('/project')}"><a href="#/project" translate>PROJECT</a></li>
+                <li ng-class="{active : isActive('/catalogos')}"><a href="#/catalogos" translate>CATALOG</a></li>
+                <li ng-class="{active : isActive('/help')}"><a href="#/help" translate>TUTORIAL</a></li>
+                <li ng-class="{active : isActive('/team')}"><a href="#/team" translate>TEAM</a></li>
+
+                <li ng-show="!hasRole('user') && !hasRole('admin')" ng-class="{active : isActive('/login')}"><a href="" ng-click="registerModal()" translate>LOGIN</a></li>
+                <li ng-show="hasRole('user')" ng-class="{active : isActive('/explore')}"><a href="#/explore">Explore</a></li>
+                <li onmousedown="show_coords(event)" ng-show="hasRole('user')" ng-class="{active : isActive('/sparql')}"><a href="#/sparql">SPARQL</a></li>
+                <li onmousedown="show_coords(event)" ng-show="hasRole('user')" ng-class="{active : isActive('/userpage')}"><a href="#/userpage" translate>ACCOUNT</a></li>
+                <li ng-show="hasRole('admin')" ng-class="{active : isActive('/admin')}"><a href="#/admin">Admin</a></li>
+
+                <!--<li ng-repeat="menuitem in nav">
+                    <a href="{{menuitem.url}}">{{menuitem.name}}</a>
+                </li>-->
+            </ul>
+
+            <form ng-show="hasRole('user')" class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <!-- typeahead="state for state in states | filter:$viewValue | limitTo:8" -->
+                    <input type="text" placerholder="Search" class="form-control" ng-model="selected">
+                </div>
+                <button type="submit" class="btn btn-default" ng-click="listLike()"><span class="glyphicon glyphicon-search"></span></button>
+            </form>
+            <!-- <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Search</button>
+            </form> -->
+
+            <ul class="navbar-text navbar-right" ng-hide="loggedIn">
+                <li><a class="pull-right"href="signin.html">Sign in</a></li>
+            </ul>
+
+            <ul class="nav pull-right" ng-show="user">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.name}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <!--<li><a ng-click="logout()">Preferences</a></li>-->
+                        <li><a ng-click="logout()" translate>LOGOUT</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav pull-right" ng-hide="user">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" translate>ANONYMOUS<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="" ng-click="registerModal()">Log in</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Idioma<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-click="changeLanguage('es')">Castellano</a></li>
+                        <li><a ng-click="changeLanguage('ca')">Català</a></li>
+                        <li><a ng-click="changeLanguage('en')">English</a></li>
+                    </ul>
+            </ul>
+            <!--<ul class="navbar-text navbar-right" ng-show="loggedIn">
+                <li>Hello {{username}}!</li>
+            </ul>
+            <ul class="navbar-text navbar-right" ng-show="loggedIn">
+                <li ng-click="logout()">Logout</li>
+            </ul>-->
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div id="wrap">
+    <div class="alert alert-error" ng-show="error">{{error}}</div>
+    <div ng-view></div>
+
+</div>
+    <!-- <div class="wrapper">
+        <div class="container">
+            <div ng-view></div>
+
+        </div>
+        <div class="push"></div>
+    </div>
+</div>
+
+<div id="footer">
+        <div class="container">
+            <address>
+                © 2013 Daniel Alami. All rights reserved.<br>
+            </address>
+        </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

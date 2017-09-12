@@ -1,0 +1,109 @@
+.carousel .item {
+    height: 500px;
+    background-color: #FFFFFF;
+}
+
+.carousel-caption {
+    /* color: #ffffff; */
+    text-align: center;
+    text-shadow: none;
+}
+
+.carousel-caption h1 {
+ font-size: 22px;
+   color: #000000;
+
+
+}
+.team .row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.team .featurette-divider {
+    margin: 0px;
+}
+.nav {
+    margin-top: 5px;
+}
+
+.carousel-caption p {
+    font-size: 16px;
+    color: #000000;
+}
+
+.carousel-control.left {
+    background-image: -webkit-gradient(linear, 0 top, 100% top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.0001)));
+    background-image: -webkit-linear-gradient(left, color-stop(rgba(0, 0, 0, 0.5) 0), color-stop(rgba(0, 0, 0, 0.0001) 100%));
+    background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.0001) 100%);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 100%);
+    /* background-repeat: repeat-x; */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}
+
+.carousel-control.right {
+    right: 0;
+    left: auto;
+    /* background-image: -webkit-gradient(linear, 0 top, 100% top, from(rgba(0, 0, 0, 0.0001)), to(rgba(0, 0, 0, 0.5))); */
+    background-image: -webkit-linear-gradient(left, color-stop(rgba(0, 0, 0, 0.0001) 0), color-stop(rgba(0, 0, 0, 0.5) 100%));
+    background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0, rgba(0, 0, 0, 0.5) 100%);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.10) 100%);
+    /* background-repeat: repeat-x; */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+}
+
+carousel-control {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 15%;
+    font-size: 20px;
+    color: #E45200;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 1);
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.carousel-control .icon-next, .carousel-control .glyphicon-chevron-right {
+    right: 50%;
+    color: #E45200;
+}
+
+.carousel-control .icon-next, .carousel-control .glyphicon-chevron-left {
+    right: 50%;
+    color: #E45200;
+}
+.carousel-indicators li {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 1px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #000 \9;
+    background-color: rgba(185, 182, 182, 1);
+    border: 1px solid #030303;
+    border-radius: 10px;
+}
+
+.modal-dialog {
+    margin-left: 0px;
+}
+
+@media (min-width: 768px){
+
+    .carousel-caption p {
+        margin-bottom: -20px;
+        font-size: 16px;
+        line-height: 1.4;
+    }
+    .carousel-indicators {
+        bottom: -5px;
+    }
+    .container > .navbar-header, .container > .navbar-collapse {
+        margin-right: 0;
+        margin-left: -100px;
+    }
+}
+

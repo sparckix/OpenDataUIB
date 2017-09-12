@@ -1,0 +1,29 @@
+{
+  "name": "angular-scroll",
+  "version": "0.2.6",
+  "main": "angular-scroll.min.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "package.json",
+    "src",
+    "Gruntfile.js"
+  ],
+  "dependencies": {
+    "angular": "~1.2.7"
+  },
+  "homepage": "https://github.com/durated/angular-scroll",
+  "_release": "0.2.6",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.6",
+    "commit": "8382a2c93fdbf3c3d27c57a83eefef6422da3640"
+  },
+  "_source": "git://github.com/durated/angular-scroll.git",
+  "_target": "~0.2.6",
+  "_originalSource": "angular-scroll",
+  "_direct": true
+}
